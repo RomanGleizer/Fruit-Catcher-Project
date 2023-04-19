@@ -108,11 +108,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\romy4\\OneDrive\\Рабочий стол\\Моё\\C#\\RtfGameProject\\RtfGameProject\\RtfGameProject.csproj",
+      "projectUniqueName": "C:\\Users\\romy4\\OneDrive\\Рабочий стол\\Моё\\C#\\Fruit Catcher\\Git\\Fruit-Catcher-Project\\RtfGameProject\\RtfGameProject.csproj",
       "projectName": "RtfGameProject",
-      "projectPath": "C:\\Users\\romy4\\OneDrive\\Рабочий стол\\Моё\\C#\\RtfGameProject\\RtfGameProject\\RtfGameProject.csproj",
+      "projectPath": "C:\\Users\\romy4\\OneDrive\\Рабочий стол\\Моё\\C#\\Fruit Catcher\\Git\\Fruit-Catcher-Project\\RtfGameProject\\RtfGameProject.csproj",
       "packagesPath": "C:\\Users\\romy4\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\romy4\\OneDrive\\Рабочий стол\\Моё\\C#\\RtfGameProject\\RtfGameProject\\obj\\",
+      "outputPath": "C:\\Users\\romy4\\OneDrive\\Рабочий стол\\Моё\\C#\\Fruit Catcher\\Git\\Fruit-Catcher-Project\\RtfGameProject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TDiKWuLQYUiwXqwRJ+MCPfei5CszRU98Wcb66PcBkZTFbwmpHx44H7ccPBrh7kZmLs4o3Aib+NYpdEIuxcZY8A==",
+  "dgSpecHash": "29vPDBvlxSOkwL45bN9BPI9nZA2iwwgeBYT6hBgVhsbkyOqLMq6NwI1DTRkLqgFL9ugcUUfnQxQFdSByOAyO2A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\romy4\\OneDrive\\Рабочий стол\\Моё\\C#\\RtfGameProject\\RtfGameProject\\RtfGameProject.csproj",
+  "projectFilePath": "C:\\Users\\romy4\\OneDrive\\Рабочий стол\\Моё\\C#\\Fruit Catcher\\Git\\Fruit-Catcher-Project\\RtfGameProject\\RtfGameProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\romy4\\.nuget\\packages\\monogame.content.builder.task\\3.8.1.303\\monogame.content.builder.task.3.8.1.303.nupkg.sha512",
     "C:\\Users\\romy4\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.1.303\\monogame.framework.desktopgl.3.8.1.303.nupkg.sha512"

@@ -63,6 +63,20 @@ public class Game1 : Game
             || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
+        toolSpawnTimer++;
+        if (toolSpawnTimer == TextureSpawnTime)
+        {
+            toolSpawnTimer = 0;
+
+            textureLayers = gameModel.GetTextureLayers(4, yPositions);
+
+            foreach (var layer in textureLayers)
+                gameModel.InstantiteFruit(layer, yPositions[yPositionsIndex++]);
+        }
+
+        foreach (var layer in textureLayers)
+            foreach (var texture in layer) gameModel.MoveTexture(gameTime, texture);
+
         #region Bucket Move
         var keyBoardState = Keyboard.GetState();
         var delta = bucket.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -77,20 +91,6 @@ public class Game1 : Game
         else if (bucket.PositionX < BucketLeftBorder)
             bucket.PositionX = BucketLeftBorder;
         #endregion 
-
-        toolSpawnTimer++;
-        if (toolSpawnTimer == TextureSpawnTime)
-        {
-            toolSpawnTimer = 0;
-
-            textureLayers = gameModel.GetTextureLayers(4, yPositions);
-
-            foreach (var layer in textureLayers)
-                gameModel.InstantiteFruit(layer, yPositions[yPositionsIndex++]);
-        }
-
-        foreach (var layer in textureLayers)
-        foreach (var texture in layer) gameModel.MoveTexture(gameTime, texture);
 
         base.Update(gameTime);
     }
