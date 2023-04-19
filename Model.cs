@@ -34,9 +34,9 @@ public class Model
         texture.PositionY += texture.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
 
-    public void InstantiteFruit(GameTexture[] randomFruits, int yPosition)
+    public void InstantiteFruit(GameTexture[] textures, int yPosition)
     {
-        foreach (var fruit in randomFruits)
+        foreach (var fruit in textures)
         {
             LoadContent(fruit);
             fruit.PositionY = yPosition;

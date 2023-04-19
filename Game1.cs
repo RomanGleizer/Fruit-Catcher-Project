@@ -24,6 +24,7 @@ public class Game1 : Game
     private readonly int BucketLeftBorder;
 
     private double toolSpawnTimer;
+    private int counter;
 
     public Game1()
     {
@@ -105,7 +106,7 @@ public class Game1 : Game
         foreach (var textures in secondLayerTextures) gameModel.DrawTexture(_spriteBatch, textures);
         gameModel.DrawTexture(_spriteBatch, bucket);
 
-        _spriteBatch.DrawString(font, gameTime.TotalGameTime.TotalSeconds.ToString(), new Vector2(0, 0), Color.Black);
+        _spriteBatch.DrawString(font, counter.ToString(), new Vector2(0, 0), Color.Black);
 
         _spriteBatch.End();
 
