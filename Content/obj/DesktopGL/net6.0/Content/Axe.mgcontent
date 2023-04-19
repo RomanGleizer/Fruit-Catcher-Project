@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/RtfGameProject/RtfGameProject/Content/Axe.jpg</SourceFile>
+  <SourceFile>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/Fruit Catcher/Git/Fruit-Catcher-Project/Content/Axe.jpg</SourceFile>
   <SourceTime>2023-04-16T19:44:58.9304528+05:00</SourceTime>
-  <DestFile>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/RtfGameProject/RtfGameProject/Content/bin/DesktopGL/Content/Axe.xnb</DestFile>
-  <DestTime>2023-04-16T19:57:29.560997+05:00</DestTime>
+  <DestFile>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/Fruit Catcher/Git/Fruit-Catcher-Project/Content/bin/DesktopGL/Content/Axe.xnb</DestFile>
+  <DestTime>2023-04-19T15:56:33.167348+05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T16:44:56+05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
