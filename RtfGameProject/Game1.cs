@@ -57,6 +57,8 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
+        // Rectangle для хитбоксов.
+
         yPositionsIndex = 0;
 
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
