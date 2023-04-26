@@ -49,12 +49,12 @@
 /processorParam:TextureFormat=Color
 /build:bucket.png
 
-#begin DeltaTime.spritefont
+#begin Health.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:DeltaTime.spritefont
+/build:Health.spritefont
 
 #begin Okylovskyi.png
 /importer:TextureImporter

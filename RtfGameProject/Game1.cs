@@ -6,7 +6,8 @@ namespace RtfGameProject;
 
 public class Game1 : Game
 {
-    private SpriteFont font;
+    private SpriteFont scoreFont;
+    private SpriteFont healthFont;
     private GameTexture[][] textureLayers;
     private int[] yPositions;
 
@@ -23,7 +24,7 @@ public class Game1 : Game
     private double toolSpawnTimer;
     private int yPositionsIndex;
     private int collisionCounter;
-    private string collisionText;
+    private int healthAmount;
 
     public Game1()
     {
@@ -42,6 +43,7 @@ public class Game1 : Game
     {
         yPositions = new int[] { -50, -150, -250, -350, -450 };
         textureLayers = gameModel.GetTextureLayers(5, yPositions);
+        healthAmount = 3;
 
         base.Initialize();
     }
@@ -54,7 +56,8 @@ public class Game1 : Game
         foreach (var texture in layer) gameModel.LoadContent(texture);
        
         gameModel.LoadContent(bucket);
-        font = Content.Load<SpriteFont>("Score");
+        scoreFont = Content.Load<SpriteFont>("Score");
+        healthFont = Content.Load<SpriteFont>("Health");
     }
 
     protected override void Update(GameTime gameTime)
@@ -98,10 +101,8 @@ public class Game1 : Game
                 if (gameModel.IsTouching(bucket, texture) && texture is Fruit)
                     collisionCounter++;
                 else if (gameModel.IsTouching(bucket, texture) && texture is not Fruit)
-                    collisionCounter--;
+                    healthAmount--;
             }
-
-        collisionText = collisionCounter.ToString();
 
         base.Update(gameTime);
     }
@@ -115,7 +116,9 @@ public class Game1 : Game
         foreach (var texture in layer) gameModel.DrawTexture(_spriteBatch, texture);
 
         gameModel.DrawTexture(_spriteBatch, bucket);
-        _spriteBatch.DrawString(font, collisionText, new Vector2(0, 0), Color.Black);
+
+        _spriteBatch.DrawString(scoreFont, collisionCounter.ToString(), new Vector2(0, 0), Color.Black);
+        _spriteBatch.DrawString(healthFont, healthAmount.ToString(), new Vector2(0, 100), Color.Red);
 
         _spriteBatch.End();
         base.Draw(gameTime);
