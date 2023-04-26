@@ -12,16 +12,17 @@ public class Game1 : Game
 
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private GameTexture bucket;
+    private Bucket bucket;
     private Model gameModel;
 
-    private const int TextureSpawnTime = 300;
+    private const int TextureSpawnTime = 190;
 
     private readonly int BucketRigthBorder;
     private readonly int BucketLeftBorder;
 
     private double toolSpawnTimer;
     private int yPositionsIndex;
+    private int collisionCounter;
 
     public Game1()
     {
@@ -30,7 +31,7 @@ public class Game1 : Game
 
         _graphics = new GraphicsDeviceManager(this);
         gameModel = new Model(Content);
-        bucket = new GameTexture(360, 400, 500, 65, 65, "bucket");
+        bucket = new Bucket(360, 400, 500, 65, 65, "bucket");
 
         BucketRigthBorder = _graphics.PreferredBackBufferWidth - bucket.Width / 2 - 30;
         BucketLeftBorder = bucket.Width / 2 - 30;
@@ -38,8 +39,8 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        yPositions = new int[] { -50, -150, -250, -350 };
-        textureLayers = gameModel.GetTextureLayers(4, yPositions);
+        yPositions = new int[] { -50, -150, -250, -350, -450 };
+        textureLayers = gameModel.GetTextureLayers(5, yPositions);
 
         base.Initialize();
     }
@@ -57,27 +58,11 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-        // Rectangle для хитбоксов.
-
         yPositionsIndex = 0;
 
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
             || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
-
-        toolSpawnTimer++;
-        if (toolSpawnTimer == TextureSpawnTime)
-        {
-            toolSpawnTimer = 0;
-
-            textureLayers = gameModel.GetTextureLayers(4, yPositions);
-
-            foreach (var layer in textureLayers)
-                gameModel.InstantiteFruit(layer, yPositions[yPositionsIndex++]);
-        }
-
-        foreach (var layer in textureLayers)
-            foreach (var texture in layer) gameModel.MoveTexture(gameTime, texture);
 
         #region Bucket Move
         var keyBoardState = Keyboard.GetState();
@@ -94,6 +79,25 @@ public class Game1 : Game
             bucket.PositionX = BucketLeftBorder;
         #endregion 
 
+        toolSpawnTimer++;
+        if (toolSpawnTimer == TextureSpawnTime)
+        {
+            toolSpawnTimer = 0;
+            textureLayers = gameModel.GetTextureLayers(5, yPositions);
+
+            foreach (var layer in textureLayers)
+                gameModel.InstantiteLayer(layer, yPositions[yPositionsIndex++]);
+        }
+
+        foreach (var layer in textureLayers)
+            foreach (var texture in layer)
+            {
+                gameModel.MoveTexture(gameTime, texture);
+
+                if (gameModel.IsTouching(bucket, texture))
+                    collisionCounter++;
+            }
+
         base.Update(gameTime);
     }
 
@@ -106,7 +110,7 @@ public class Game1 : Game
         foreach (var texture in layer) gameModel.DrawTexture(_spriteBatch, texture);
 
         gameModel.DrawTexture(_spriteBatch, bucket);
-        _spriteBatch.DrawString(font, gameTime.TotalGameTime.TotalSeconds.ToString(), new Vector2(0, 0), Color.Black);
+        _spriteBatch.DrawString(font, collisionCounter.ToString(), new Vector2(0, 0), Color.Black);
 
         _spriteBatch.End();
         base.Draw(gameTime);

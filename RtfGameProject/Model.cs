@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace RtfGameProject;
 
-public class Model
+public partial class Model
 {
     private ContentManager content;
 
@@ -34,7 +34,7 @@ public class Model
         texture.PositionY += texture.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
 
-    public void InstantiteFruit(GameTexture[] textures, int yPosition)
+    public void InstantiteLayer(GameTexture[] textures, int yPosition)
     {
         foreach (var texture in textures)
         {
@@ -70,50 +70,15 @@ public class Model
         var textures = new GameTexture[length][];
 
         for (int i = 0; i < textures.Length; i++)
-            textures[i] = GetObjectLayer(yPositions[i], 170);
+            textures[i] = GetObjectLayer(yPositions[i], 320);
         return textures;
     }
 
-    private GameTexture[] GetNotDuplicateObjectLayer(GameTexture[] objects, int size)
+    public bool IsTouching(GameTexture first, GameTexture second)
     {
-        Random random = new Random();
-        var randomObjects = new GameTexture[size];
-        var objectPositionData = new Dictionary<GameTexture, float>();
-        var noDuplicateObjectDict = new Dictionary<GameTexture, float>();
-        var result = new List<GameTexture>();
-
-        for (int i = 0; i < randomObjects.Length; i++)
-        {
-            var randomObject = objects[random.Next(0, objects.Length)];
-            randomObjects[i] = randomObject;
-            if (!objectPositionData.ContainsKey(randomObject))
-                objectPositionData.Add(randomObject, randomObject.PositionX);
-        }
-
-        foreach (var fruit in objectPositionData)
-            if (!noDuplicateObjectDict.ContainsKey(fruit.Key) 
-                && !noDuplicateObjectDict.ContainsValue(fruit.Value))
-                noDuplicateObjectDict.Add(fruit.Key, fruit.Value);
-
-        foreach (var obj in noDuplicateObjectDict.Keys) result.Add(obj);
-
-        return result.ToArray();
-    }
-
-    private object[][] GetTextureData()
-    {
-        return new object[][]
-        {
-            new object[] { 100, 100, "apple" },
-            new object[] { 70, 70, "orange" },
-            new object[] { 85, 85, "peach" },
-            new object[] { 80, 90, "pear" },
-            new object[] { 90, 90, "pineapple" },
-            new object[] { 70, 70, "axe" },
-            new object[] { 60, 60, "pick" },
-            new object[] { 80, 80, "tool" },
-            new object[] { 110, 110, "SiSharp" },
-            new object[] { 90, 90, "Okylovskyi" }
-        };
+        return first.Rectangle.Bottom + first.Velocity.Y > second.Rectangle.Top &&
+               first.Rectangle.Top < second.Rectangle.Top &&
+               first.Rectangle.Right > second.Rectangle.Left &&
+               first.Rectangle.Left < second.Rectangle.Right;
     }
 }
