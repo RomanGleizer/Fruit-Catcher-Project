@@ -15,7 +15,7 @@ public class Game1 : Game
     private Bucket bucket;
     private Model gameModel;
 
-    private const int TextureSpawnTime = 190;
+    private const int TextureSpawnTime = 150;
 
     private readonly int BucketRigthBorder;
     private readonly int BucketLeftBorder;
@@ -23,6 +23,7 @@ public class Game1 : Game
     private double toolSpawnTimer;
     private int yPositionsIndex;
     private int collisionCounter;
+    private string collisionText;
 
     public Game1()
     {
@@ -94,9 +95,13 @@ public class Game1 : Game
             {
                 gameModel.MoveTexture(gameTime, texture);
 
-                if (gameModel.IsTouching(bucket, texture))
+                if (gameModel.IsTouching(bucket, texture) && texture is Fruit)
                     collisionCounter++;
+                else if (gameModel.IsTouching(bucket, texture) && texture is not Fruit)
+                    collisionCounter--;
             }
+
+        collisionText = collisionCounter.ToString();
 
         base.Update(gameTime);
     }
@@ -110,7 +115,7 @@ public class Game1 : Game
         foreach (var texture in layer) gameModel.DrawTexture(_spriteBatch, texture);
 
         gameModel.DrawTexture(_spriteBatch, bucket);
-        _spriteBatch.DrawString(font, collisionCounter.ToString(), new Vector2(0, 0), Color.Black);
+        _spriteBatch.DrawString(font, collisionText, new Vector2(0, 0), Color.Black);
 
         _spriteBatch.End();
         base.Draw(gameTime);

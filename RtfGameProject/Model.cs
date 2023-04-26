@@ -10,9 +10,11 @@ namespace RtfGameProject;
 public partial class Model
 {
     private ContentManager content;
+    private readonly int touchDelta; 
 
     public Model(ContentManager contentManager)
     {
+        touchDelta = 55;
         content = contentManager;
     }
 
@@ -52,14 +54,15 @@ public partial class Model
 
         for (int i = 0; i < possibleTextures.GetLength(0); i++)
         {
-            textures.Add(new GameTexture(
-                possiblePositions.ElementAt(random.Next(0, possiblePositions.Count)),
-                texturePositionY,
-                textureSpeed,
-                (int)possibleTextures[i][0],
-                (int)possibleTextures[i][1],
-                (string)possibleTextures[i][2]
-                ));
+            var texturePositionX = possiblePositions.ElementAt(random.Next(0, possiblePositions.Count));
+            var width = (int)possibleTextures[i][0];
+            var height = (int)possibleTextures[i][1];
+            var name = (string)possibleTextures[i][2];
+
+            if (name != "axe" && name != "pick" && name != "tool")
+                textures.Add(new Fruit(texturePositionX, texturePositionY, textureSpeed, width, height, name));
+            else
+                textures.Add(new Tool(texturePositionX, texturePositionY, textureSpeed, width, height, name));
         }
 
         return GetNotDuplicateObjectLayer(textures.ToArray(), 5);
@@ -70,13 +73,13 @@ public partial class Model
         var textures = new GameTexture[length][];
 
         for (int i = 0; i < textures.Length; i++)
-            textures[i] = GetObjectLayer(yPositions[i], 320);
+            textures[i] = GetObjectLayer(yPositions[i], 400);
         return textures;
     }
 
     public bool IsTouching(GameTexture first, GameTexture second)
     {
-        return first.Rectangle.Bottom + first.Velocity.Y > second.Rectangle.Top &&
+        return first.Rectangle.Bottom - touchDelta > second.Rectangle.Top &&
                first.Rectangle.Top < second.Rectangle.Top &&
                first.Rectangle.Right > second.Rectangle.Left &&
                first.Rectangle.Left < second.Rectangle.Right;
