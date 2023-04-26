@@ -135,6 +135,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Score.spritefont
 
+#begin Shield.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Shield.spritefont
+
 #begin SiSharp.png
 /importer:TextureImporter
 /processor:TextureProcessor

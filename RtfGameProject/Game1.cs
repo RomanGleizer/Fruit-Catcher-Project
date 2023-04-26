@@ -6,8 +6,6 @@ namespace RtfGameProject;
 
 public class Game1 : Game
 {
-    private SpriteFont scoreFont;
-    private SpriteFont healthFont;
     private GameTexture[][] textureLayers;
     private int[] yPositions;
 
@@ -15,16 +13,22 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
     private Bucket bucket;
     private Model gameModel;
+    private SpriteFont scoreFont;
+    private SpriteFont healthFont;
+    private SpriteFont shieldFont;
 
     private const int TextureSpawnTime = 150;
+    private const int ShieldActivePeriodTime = 600;
 
     private readonly int BucketRigthBorder;
     private readonly int BucketLeftBorder;
 
-    private double toolSpawnTimer;
+    private int toolSpawnTimer;
+    private int shieldActivePeriodTimer;
     private int yPositionsIndex;
     private int collisionCounter;
     private int healthAmount;
+    private bool isShieldActive;
 
     public Game1()
     {
@@ -58,6 +62,7 @@ public class Game1 : Game
         gameModel.LoadContent(bucket);
         scoreFont = Content.Load<SpriteFont>("Score");
         healthFont = Content.Load<SpriteFont>("Health");
+        shieldFont = Content.Load<SpriteFont>("Shield");
     }
 
     protected override void Update(GameTime gameTime)
@@ -93,16 +98,30 @@ public class Game1 : Game
                 gameModel.InstantiteLayer(layer, yPositions[yPositionsIndex++]);
         }
 
+        shieldActivePeriodTimer++;
+        if (shieldActivePeriodTimer == ShieldActivePeriodTime)
+        {
+            shieldActivePeriodTimer = 0;
+            isShieldActive = false;
+        }
+
         foreach (var layer in textureLayers)
             foreach (var texture in layer)
             {
                 gameModel.MoveTexture(gameTime, texture);
 
-                if (gameModel.IsTouching(bucket, texture) && texture is Fruit)
-                    collisionCounter++;
-                else if (gameModel.IsTouching(bucket, texture) && texture is not Fruit)
-                    healthAmount--;
+                if (gameModel.IsTouching(bucket, texture))
+                {
+                    if (texture is Fruit) 
+                        collisionCounter++;
+                    if (texture is Shield)
+                        isShieldActive = true;
+                    if (gameModel.IsTouching(bucket, texture) && texture is not Fruit && !isShieldActive)
+                        healthAmount--;
+                }
             }
+
+        if (healthAmount == 0) Exit();
 
         base.Update(gameTime);
     }
@@ -118,7 +137,8 @@ public class Game1 : Game
         gameModel.DrawTexture(_spriteBatch, bucket);
 
         _spriteBatch.DrawString(scoreFont, collisionCounter.ToString(), new Vector2(0, 0), Color.Black);
-        _spriteBatch.DrawString(healthFont, healthAmount.ToString(), new Vector2(0, 100), Color.Red);
+        _spriteBatch.DrawString(healthFont, healthAmount.ToString(), new Vector2(0, 30), Color.Red);
+        _spriteBatch.DrawString(shieldFont, isShieldActive.ToString(), new Vector2(0, 60), Color.Green);
 
         _spriteBatch.End();
         base.Draw(gameTime);
