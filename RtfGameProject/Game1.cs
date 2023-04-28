@@ -7,6 +7,7 @@ namespace RtfGameProject;
 public class Game1 : Game
 {
     private GameTexture[][] textureLayers;
+    private GameFont[] fonts;
     private int[] yPositions;
 
     private GraphicsDeviceManager _graphics;
@@ -18,7 +19,7 @@ public class Game1 : Game
     private SpriteFont shieldFont;
 
     private const int TextureSpawnTime = 150;
-    private const int ShieldActivePeriodTime = 600;
+    private const int ShieldActivePeriodTime = 1000;
 
     private readonly int BucketRigthBorder;
     private readonly int BucketLeftBorder;
@@ -60,6 +61,7 @@ public class Game1 : Game
         foreach (var texture in layer) gameModel.LoadContent(texture);
        
         gameModel.LoadContent(bucket);
+
         scoreFont = Content.Load<SpriteFont>("Score");
         healthFont = Content.Load<SpriteFont>("Health");
         shieldFont = Content.Load<SpriteFont>("Shield");
@@ -116,7 +118,9 @@ public class Game1 : Game
                         collisionCounter++;
                     if (texture is Shield)
                         isShieldActive = true;
-                    if (gameModel.IsTouching(bucket, texture) && texture is not Fruit && !isShieldActive)
+                    if (texture is Heal && healthAmount < 3)
+                        healthAmount++;
+                    if (texture is not Fruit && texture is not Shield && !isShieldActive)
                         healthAmount--;
                 }
             }

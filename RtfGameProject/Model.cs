@@ -59,10 +59,12 @@ public partial class Model
             var height = (int)possibleTextures[i][1];
             var name = (string)possibleTextures[i][2];
 
-            if (name != "axe" && name != "pick" && name != "tool" && name != "Okylovskyi")
+            if (name != "axe" && name != "pick" && name != "tool" && name != "Okylovskyi" && name != "SiSharp")
                 textures.Add(new Fruit(texturePositionX, texturePositionY, textureSpeed, width, height, name));
             else if (name == "Okylovskyi")
                 textures.Add(new Shield(texturePositionX, texturePositionY, textureSpeed, width, height, name));
+            else if (name == "SiSharp")
+                textures.Add(new Heal(texturePositionX, texturePositionY, textureSpeed, width, height, name));
             else
                 textures.Add(new Tool(texturePositionX, texturePositionY, textureSpeed, width, height, name));
         }
