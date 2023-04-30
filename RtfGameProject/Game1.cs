@@ -7,7 +7,6 @@ namespace RtfGameProject;
 public class Game1 : Game
 {
     private GameTexture[][] textureLayers;
-    private GameFont[] fonts;
     private int[] yPositions;
 
     private GraphicsDeviceManager _graphics;
@@ -18,13 +17,13 @@ public class Game1 : Game
     private SpriteFont healthFont;
     private SpriteFont shieldFont;
 
-    private const int TextureSpawnTime = 150;
+    private const int TextureSpawnTime = 190;
     private const int ShieldActivePeriodTime = 1000;
 
     private readonly int BucketRigthBorder;
     private readonly int BucketLeftBorder;
 
-    private int toolSpawnTimer;
+    private float textureSpawnTimer = 0;
     private int shieldActivePeriodTimer;
     private int yPositionsIndex;
     private int collisionCounter;
@@ -46,8 +45,8 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        yPositions = new int[] { -50, -150, -250, -350, -450 };
-        textureLayers = gameModel.GetTextureLayers(5, yPositions);
+        yPositions = new int[] { -50, -150, -250, -350, -450, -550, -650, -750, -850, -950, -1050 };
+        textureLayers = gameModel.GetTextureLayers(11, yPositions);
         healthAmount = 3;
 
         base.Initialize();
@@ -90,14 +89,12 @@ public class Game1 : Game
             bucket.PositionX = BucketLeftBorder;
         #endregion 
 
-        toolSpawnTimer++;
-        if (toolSpawnTimer == TextureSpawnTime)
-        {
-            toolSpawnTimer = 0;
-            textureLayers = gameModel.GetTextureLayers(5, yPositions);
+        textureSpawnTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            foreach (var layer in textureLayers)
-                gameModel.InstantiteLayer(layer, yPositions[yPositionsIndex++]);
+        if (textureSpawnTimer >= 10000000)
+        {
+            textureSpawnTimer = 0;
+            textureLayers = gameModel.GetTextureLayers(11, yPositions);
         }
 
         shieldActivePeriodTimer++;
@@ -112,16 +109,15 @@ public class Game1 : Game
             {
                 gameModel.MoveTexture(gameTime, texture);
 
+                if (texture.PositionY > GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height)
+                    gameModel.InstantiteLayer(layer, yPositions[yPositionsIndex++]);
+
                 if (gameModel.IsTouching(bucket, texture))
                 {
-                    if (texture is Fruit) 
-                        collisionCounter++;
-                    if (texture is Shield)
-                        isShieldActive = true;
-                    if (texture is Heal && healthAmount < 3)
-                        healthAmount++;
-                    if (texture is not Fruit && texture is not Shield && !isShieldActive)
-                        healthAmount--;
+                    if (texture is Fruit) collisionCounter++;
+                    if (texture is Shield) isShieldActive = true;
+                    if (texture is Heal && healthAmount < 3) healthAmount++;
+                    if (texture is Tool && !isShieldActive) healthAmount--;
                 }
             }
 

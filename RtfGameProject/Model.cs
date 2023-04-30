@@ -10,7 +10,7 @@ namespace RtfGameProject;
 public partial class Model
 {
     private ContentManager content;
-    private readonly int touchDelta; 
+    private readonly int touchDelta;
 
     public Model(ContentManager contentManager)
     {
@@ -47,8 +47,8 @@ public partial class Model
 
     public GameTexture[] GetObjectLayer(int texturePositionY, int textureSpeed)
     {
-        Random random = new Random();
-        List<GameTexture> textures = new List<GameTexture>();
+        var random = new Random();
+        var textures = new List<GameTexture>();
         var possiblePositions = new List<int> { 0, 160, 340, 550, 700 };
         var possibleTextures = GetTextureData();
 
@@ -59,13 +59,16 @@ public partial class Model
             var height = (int)possibleTextures[i][1];
             var name = (string)possibleTextures[i][2];
 
-            if (name != "axe" && name != "pick" && name != "tool" && name != "Okylovskyi" && name != "SiSharp")
+            if (name == "apple" || name == "orange" || name == "peach" || name == "pear" || name == "pineapple")
                 textures.Add(new Fruit(texturePositionX, texturePositionY, textureSpeed, width, height, name));
-            else if (name == "Okylovskyi")
+            
+            if (name == "Okylovskyi")
                 textures.Add(new Shield(texturePositionX, texturePositionY, textureSpeed, width, height, name));
-            else if (name == "SiSharp")
+            
+            if (name == "SiSharp")
                 textures.Add(new Heal(texturePositionX, texturePositionY, textureSpeed, width, height, name));
-            else
+            
+            if (name == "axe" || name == "pick" || name == "tool")
                 textures.Add(new Tool(texturePositionX, texturePositionY, textureSpeed, width, height, name));
         }
 
