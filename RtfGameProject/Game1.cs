@@ -17,18 +17,17 @@ public class Game1 : Game
     private SpriteFont healthFont;
     private SpriteFont shieldFont;
 
-    private const int TextureSpawnTime = 190;
     private const int ShieldActivePeriodTime = 1000;
 
     private readonly int BucketRigthBorder;
     private readonly int BucketLeftBorder;
 
-    private float textureSpawnTimer = 0;
     private int shieldActivePeriodTimer;
     private int yPositionsIndex;
     private int collisionCounter;
     private int healthAmount;
     private bool isShieldActive;
+    private int index;
 
     public Game1()
     {
@@ -41,14 +40,14 @@ public class Game1 : Game
 
         BucketRigthBorder = _graphics.PreferredBackBufferWidth - bucket.Width / 2 - 30;
         BucketLeftBorder = bucket.Width / 2 - 30;
+
+        yPositions = new int[] { -50, -150, -250, -350, -450, -550, -650, -750, -850, -950, -1050, -1150 };
+        textureLayers = gameModel.GetTextureLayers(11, yPositions);
     }
 
     protected override void Initialize()
     {
-        yPositions = new int[] { -50, -150, -250, -350, -450, -550, -650, -750, -850, -950, -1050 };
-        textureLayers = gameModel.GetTextureLayers(11, yPositions);
         healthAmount = 3;
-
         base.Initialize();
     }
 
@@ -89,14 +88,6 @@ public class Game1 : Game
             bucket.PositionX = BucketLeftBorder;
         #endregion 
 
-        textureSpawnTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-        if (textureSpawnTimer >= 10000000)
-        {
-            textureSpawnTimer = 0;
-            textureLayers = gameModel.GetTextureLayers(11, yPositions);
-        }
-
         shieldActivePeriodTimer++;
         if (shieldActivePeriodTimer == ShieldActivePeriodTime)
         {
@@ -105,6 +96,7 @@ public class Game1 : Game
         }
 
         foreach (var layer in textureLayers)
+        {    
             foreach (var texture in layer)
             {
                 gameModel.MoveTexture(gameTime, texture);
@@ -120,9 +112,9 @@ public class Game1 : Game
                     if (texture is Tool && !isShieldActive) healthAmount--;
                 }
             }
+        }
 
         if (healthAmount == 0) Exit();
-
         base.Update(gameTime);
     }
 

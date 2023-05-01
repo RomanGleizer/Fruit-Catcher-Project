@@ -25,6 +25,8 @@ public partial class Model
 
     public void DrawTexture(SpriteBatch spriteBatch, GameTexture texture)
     {
+        texture.Texture = content.Load<Texture2D>(texture.Name);
+
         spriteBatch.Draw(
             texture.Texture,
             new Rectangle((int)texture.PositionX, (int)texture.PositionY, texture.Width, texture.Width),
