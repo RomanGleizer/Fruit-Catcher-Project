@@ -16,7 +16,7 @@ public partial class Model
         {
             var randomObject = objects[random.Next(0, objects.Length)];
             if (!objectPositionData.ContainsKey(randomObject))
-                objectPositionData.Add(randomObject, randomObject.PositionX);
+                objectPositionData.Add(randomObject, randomObject.X);
         }
 
         foreach (var fruit in objectPositionData)
@@ -29,20 +29,20 @@ public partial class Model
         return result.ToArray();
     }
 
-    private object[][] GetTextureData()
+    private string[] GetTextureData()
     {
-        return new object[][]
+        return new string[]
         {
-            new object[] { 100, 100, "apple" },
-            new object[] { 70, 70, "orange" },
-            new object[] { 85, 85, "peach" },
-            new object[] { 80, 90, "pear" },
-            new object[] { 90, 90, "pineapple" },
-            new object[] { 70, 70, "axe" },
-            new object[] { 60, 60, "pick" },
-            new object[] { 80, 80, "tool" },
-            new object[] { 110, 110, "SiSharp" },
-            new object[] { 90, 90, "Okylovskyi" }
+            "apple",
+            "orange",
+            "peach",
+            "pear",
+            "pineapple",
+            "axe",
+            "pick",
+            "tool",
+            "SiSharp",
+            "Okylovskyi"
         };
     }
 }

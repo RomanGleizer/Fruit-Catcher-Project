@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace RtfGameProject;
 
@@ -38,18 +39,15 @@ public class Game1 : Game
         gameModel = new Model(Content);
         bucket = new Bucket(360, 400, 500, 65, 65, "bucket");
 
-        BucketRigthBorder = _graphics.PreferredBackBufferWidth - bucket.Width / 2 - 30;
-        BucketLeftBorder = bucket.Width / 2 - 30;
-
         yPositions = new int[] { -50, -150, -250, -350, -450, -550, -650, -750, -850, -950, -1050, -1150 };
         textureLayers = gameModel.GetTextureLayers(11, yPositions);
+
+        BucketRigthBorder = _graphics.PreferredBackBufferWidth - bucket.Width / 2 - 30;
+        BucketLeftBorder = bucket.Width / 2 - 30;
+        healthAmount = 3;
     }
 
-    protected override void Initialize()
-    {
-        healthAmount = 3;
-        base.Initialize();
-    }
+    protected override void Initialize() { base.Initialize(); }
 
     protected override void LoadContent()
     {
@@ -78,14 +76,14 @@ public class Game1 : Game
         var delta = bucket.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
         if (keyBoardState.IsKeyDown(Keys.Right))
-            bucket.PositionX += delta;
+            bucket.X += delta;
         if (keyBoardState.IsKeyDown(Keys.Left))
-            bucket.PositionX -= delta;
+            bucket.X -= delta;
 
-        if (bucket.PositionX > BucketRigthBorder)
-            bucket.PositionX = BucketRigthBorder;
-        else if (bucket.PositionX < BucketLeftBorder)
-            bucket.PositionX = BucketLeftBorder;
+        if (bucket.X > BucketRigthBorder)
+            bucket.X = BucketRigthBorder;
+        else if (bucket.X < BucketLeftBorder)
+            bucket.X = BucketLeftBorder;
         #endregion 
 
         shieldActivePeriodTimer++;
@@ -100,9 +98,13 @@ public class Game1 : Game
             foreach (var texture in layer)
             {
                 gameModel.MoveTexture(gameTime, texture);
-
-                if (texture.PositionY > GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height)
+                if (texture.Y > GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height)
+                {
                     gameModel.InstantiteLayer(layer, yPositions[yPositionsIndex++]);
+                    var newLayer = gameModel.GetObjectLayer(yPositions[index], 400);
+                    layer[index].Texture = newLayer[index].Texture;
+                    layer[index].Name = newLayer[index].Name;
+                }
 
                 if (gameModel.IsTouching(bucket, texture))
                 {
@@ -111,6 +113,8 @@ public class Game1 : Game
                     if (texture is Heal && healthAmount < 3) healthAmount++;
                     if (texture is Tool && !isShieldActive) healthAmount--;
                 }
+
+                index = 0;
             }
         }
 

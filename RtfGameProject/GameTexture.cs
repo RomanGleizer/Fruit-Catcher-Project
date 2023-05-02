@@ -5,14 +5,14 @@ namespace RtfGameProject;
 
 public class GameTexture
 {
-    private float positionX;
-    private float positionY;
+    private float x;
+    private float y;
     private Texture2D texture;
 
     public float Speed { get; }
     public int Width { get; }
     public int Height { get; }
-    public string Name { get; }
+    public string Name { get; set; }
     public bool IsTouchedBucket { get; }
     public Vector2 Velocity { get; }
 
@@ -22,30 +22,30 @@ public class GameTexture
         set => texture = value;
     }
 
-    public float PositionX
+    public float X
     {
-        get => positionX;
-        set => positionX = value;
+        get => x;
+        set => x = value;
     }
 
-    public float PositionY
+    public float Y
     {
-        get => positionY;
-        set => positionY = value;
+        get => y;
+        set => y = value;
     }
 
     public Rectangle Rectangle
     {
         get
         {
-            return new Rectangle((int)positionX, (int)positionY, Width, Height);
+            return new Rectangle((int)x, (int)y, Width, Height);
         }
     }
 
-    public GameTexture(float positionX, float positionY, float speed, int width, int height, string name)
+    public GameTexture(float x, float y, float speed, int width, int height, string name)
     {
-        PositionX = positionX;
-        PositionY = positionY;
+        X = x;
+        Y = y;
         Speed = speed;
         Width = width;
         Height = height;

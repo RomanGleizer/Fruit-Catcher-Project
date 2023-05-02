@@ -29,13 +29,13 @@ public partial class Model
 
         spriteBatch.Draw(
             texture.Texture,
-            new Rectangle((int)texture.PositionX, (int)texture.PositionY, texture.Width, texture.Width),
+            new Rectangle((int)texture.X, (int)texture.Y, texture.Width, texture.Width),
             Color.White);
     }
 
     public void MoveTexture(GameTime gameTime, GameTexture texture)
     {
-        texture.PositionY += texture.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        texture.Y += texture.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
 
     public void InstantiteLayer(GameTexture[] textures, int yPosition)
@@ -43,7 +43,7 @@ public partial class Model
         foreach (var texture in textures)
         {
             LoadContent(texture);
-            texture.PositionY = yPosition;
+            texture.Y = yPosition;
         }
     }
 
@@ -51,15 +51,15 @@ public partial class Model
     {
         var random = new Random();
         var textures = new List<GameTexture>();
-        var possiblePositions = new List<int> { 0, 160, 340, 550, 700 };
+        var possiblePositionsX = new List<int> { 0, 160, 340, 550, 700 };
         var possibleTextures = GetTextureData();
 
         for (int i = 0; i < possibleTextures.GetLength(0); i++)
         {
-            var texturePositionX = possiblePositions.ElementAt(random.Next(0, possiblePositions.Count));
-            var width = (int)possibleTextures[i][0];
-            var height = (int)possibleTextures[i][1];
-            var name = (string)possibleTextures[i][2];
+            var texturePositionX = possiblePositionsX.ElementAt(random.Next(0, possiblePositionsX.Count));
+            var width = 75;
+            var height = 75;
+            var name = possibleTextures[random.Next(0, possibleTextures.Length)];
 
             if (name == "apple" || name == "orange" || name == "peach" || name == "pear" || name == "pineapple")
                 textures.Add(new Fruit(texturePositionX, texturePositionY, textureSpeed, width, height, name));
