@@ -74,8 +74,7 @@ public partial class Model
                 textures.Add(new Tool(texturePositionX, texturePositionY, textureSpeed, width, height, name));
         }
 
-        if (textureSpeed == 400) return GetNotDuplicateObjectLayer(textures.ToArray(), 5);
-        return textures.ToArray();
+        return GetNotDuplicateObjectLayer(textures.ToArray(), 5);
     }
 
     public GameTexture[][] GetTextureLayers(int length, int[] yPositions)

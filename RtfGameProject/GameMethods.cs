@@ -14,7 +14,7 @@ public partial class Game1
         _graphics = new GraphicsDeviceManager(this);
         _gameModel = new Model(Content);
         _bucket = new Bucket(360, 400, 500, 65, 65, "bucket");
-        _bubble = new GameTexture(_bucket.X, _bucket.Y, 500, 90, 90, "bubble");
+        _bubble = new GameTexture(_bucket.X, _bucket.Y, 500, 150, 150, "bubble");
 
         _yPositions = new int[] { -50, -150, -250, -350, -450, -550, -650, -750, -850, -950, -1050, -1150 };
         _textureLayers = _gameModel.GetTextureLayers(11, _yPositions);
@@ -94,10 +94,11 @@ public partial class Game1
                     if (texture.Y > GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height)
                     {
                         _gameModel.InstantiteLayer(layer, _yPositions[_yPositionsIndex++]);
-                        var newLayer = _gameModel.GetObjectLayer(_yPositions[_index], 410);
+                        var newLayer = _gameModel.GetObjectLayer(_yPositions[_index], 400);
                         layer[_index].Texture = newLayer[_index].Texture;
                         layer[_index].Name = newLayer[_index].Name;
                     }
+                    _index = 0;
                     if (_gameModel.IsTouching(_bucket, texture))
                     {
                         if (texture is Fruit) _collisionCounter++;
@@ -106,7 +107,6 @@ public partial class Game1
                         if (texture is Tool && !_isShieldActive) _healthAmount--;
                         texture.Y -= 2000;
                     }
-                    _index = 0;
                 }
             }
             _yPositions = new int[] { -50, -150, -250, -350, -450, -550, -650, -750, -850, -950, -1050, -1150 };
@@ -130,8 +130,8 @@ public partial class Game1
 
         if (_isShieldActive)
         {
-            _bubble.X = _bucket.X - 10;
-            _bubble.Y = _bucket.Y - 10;
+            _bubble.X = _bucket.X - 40;
+            _bubble.Y = _bucket.Y - 50;
             _gameModel.DrawTexture(_spriteBatch, _bubble);
         }
 
