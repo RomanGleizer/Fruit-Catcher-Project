@@ -57,8 +57,8 @@ public partial class Model
         for (int i = 0; i < possibleTextures.GetLength(0); i++)
         {
             var texturePositionX = possiblePositionsX.ElementAt(random.Next(0, possiblePositionsX.Count));
-            var width = 75;
-            var height = 75;
+            var width = 80;
+            var height = 80;
             var name = possibleTextures[random.Next(0, possibleTextures.Length)];
 
             if (name == "apple" || name == "orange" || name == "peach" || name == "pear" || name == "pineapple")
