@@ -6,8 +6,8 @@ namespace RtfGameProject;
 
 public class GameState : State
 {
-    public GameState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content)
-      : base(game, graphicsDevice, content)
+    public GameState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content, Model model, SpriteBatch batch)
+      : base(game, graphicsDevice, content, model, batch)
     {
     }
 

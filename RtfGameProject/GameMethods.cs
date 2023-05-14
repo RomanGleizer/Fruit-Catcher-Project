@@ -34,7 +34,7 @@ public partial class Game1
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _currentState = new MenuState(this, _graphics.GraphicsDevice, Content);
+        _currentState = new MenuState(this, _graphics.GraphicsDevice, Content, _gameModel, _spriteBatch);
 
         foreach (var layer in _textureLayers)
             foreach (var texture in layer) _gameModel.LoadContent(texture);
@@ -63,8 +63,8 @@ public partial class Game1
 
         if (_isGameStarted)
         {
-
             _yPositionsIndex = 0;
+            _shieldActivePeriodTimer++;
             #region Bucket Move
             var keyBoardState = Keyboard.GetState();
             var delta = _bucket.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -80,7 +80,6 @@ public partial class Game1
                 _bucket.X = BucketLeftBorder;
             #endregion
 
-            _shieldActivePeriodTimer++;
             if (_shieldActivePeriodTimer == ShieldActivePeriodTime)
             {
                 _shieldActivePeriodTimer = 0;
@@ -92,18 +91,12 @@ public partial class Game1
                 foreach (var texture in layer)
                 {
                     _gameModel.MoveTexture(gameTime, texture);
-                    if (texture.Y > GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height + 100)
+                    if (texture.Y > GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height + 50)
                     {
-                        var newLayer = _gameModel.GetObjectLayer(_yPositions[_index], 400);
-                        foreach (var item in newLayer) _gameModel.LoadContent(item);
+                        var newLayer = _gameModel.GetObjectLayer(_yPositions[_index++], 400);
 
-                        if (layer.Length > newLayer.Length)
-                            for (int i = 0; i < newLayer.Length; i++)
-                                layer[i] = newLayer[i];
-
-                        if (newLayer.Length >= layer.Length)
-                            for (int i = 0; i < layer.Length; i++)
-                                layer[i] = newLayer[i];
+                        if (layer.Length >= newLayer.Length) _gameModel.ChangeTextures(newLayer, layer);
+                        if (newLayer.Length >= layer.Length) _gameModel.ChangeTextures(layer, newLayer);
 
                         _gameModel.InstantiteLayer(layer, _yPositions[_yPositionsIndex++]);
                     }
@@ -117,7 +110,9 @@ public partial class Game1
                         texture.Y -= 2000;
                     }
                 }
+                _index = 0;
             }
+
             if (_healthAmount == 0) Exit();
         }
 
@@ -126,13 +121,14 @@ public partial class Game1
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.Bisque);
         _spriteBatch.Begin();
 
         _currentState.Draw(gameTime, _spriteBatch);
 
         foreach (var layer in _textureLayers)
-            foreach (var texture in layer) _gameModel.DrawTexture(_spriteBatch, texture);
+            foreach (var texture in layer) 
+                _gameModel.DrawTexture(_spriteBatch, texture);
 
         _gameModel.DrawTexture(_spriteBatch, _bucket);
 

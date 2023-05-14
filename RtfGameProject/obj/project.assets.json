@@ -54,6 +54,12 @@
             "rid": "win-x86"
           }
         }
+      },
+      "MonoGame.Framework.WindowsDX/3.8.1.303": {
+        "type": "package",
+        "build": {
+          "build/MonoGame.Framework.WindowsDX.targets": {}
+        }
       }
     }
   },
@@ -93,12 +99,27 @@
         "runtimes/win-x86/native/SDL2.dll",
         "runtimes/win-x86/native/soft_oal.dll"
       ]
+    },
+    "MonoGame.Framework.WindowsDX/3.8.1.303": {
+      "sha512": "RKAXyQRjkyw3hbaP5wmoqr7FH8SkaYfI8TUhX/S4PySHYjVhj4ufr0Rd2HDJTPkSq0KubsBoNUpbD9JM0DlwsQ==",
+      "type": "package",
+      "path": "monogame.framework.windowsdx/3.8.1.303",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "build/MonoGame.Framework.WindowsDX.targets",
+        "lib/net6.0-windows7.0/MonoGame.Framework.dll",
+        "monogame.framework.windowsdx.3.8.1.303.nupkg.sha512",
+        "monogame.framework.windowsdx.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "MonoGame.Content.Builder.Task >= 3.8.1.303",
-      "MonoGame.Framework.DesktopGL >= 3.8.1.303"
+      "MonoGame.Framework.DesktopGL >= 3.8.1.303",
+      "MonoGame.Framework.WindowsDX >= 3.8.1.303"
     ]
   },
   "packageFolders": {
@@ -150,6 +171,10 @@
             "version": "[3.8.1.303, )"
           },
           "MonoGame.Framework.DesktopGL": {
+            "target": "Package",
+            "version": "[3.8.1.303, )"
+          },
+          "MonoGame.Framework.WindowsDX": {
             "target": "Package",
             "version": "[3.8.1.303, )"
           }

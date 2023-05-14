@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace RtfGameProject;
 
@@ -10,8 +11,8 @@ public class MenuState : State
 {
     private List<Component> _components;
 
-    public MenuState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content)
-        : base(game, graphicsDevice, content)
+    public MenuState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content, Model model, SpriteBatch batch)
+        : base(game, graphicsDevice, content, model, batch)
     {
         var buttonTexture = _content.Load<Texture2D>("Button");
         var buttonFont = _content.Load<SpriteFont>("Font");
@@ -44,7 +45,7 @@ public class MenuState : State
             tutorialGameButton,
             quitGameButton,
         };
-}
+    }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
@@ -54,7 +55,7 @@ public class MenuState : State
 
     private void NewGameButton_Click(object sender, EventArgs e)
     {
-        _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
+        _game.ChangeState(new GameState(_game, _graphicsDevice, _content, _model, _batch));
     }
 
     public override void PostUpdate(GameTime gameTime)

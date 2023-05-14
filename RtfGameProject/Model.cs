@@ -25,8 +25,6 @@ public partial class Model
 
     public void DrawTexture(SpriteBatch spriteBatch, GameTexture texture)
     {
-        texture.Texture = content.Load<Texture2D>(texture.Name);
-
         spriteBatch.Draw(
             texture.Texture,
             new Rectangle((int)texture.X, (int)texture.Y, texture.Width, texture.Width),
@@ -75,6 +73,12 @@ public partial class Model
         }
 
         return GetNotDuplicateObjectLayer(textures.ToArray(), 5);
+    }
+
+    public void ChangeTextures(GameTexture[] first, GameTexture[] second)
+    {
+        for (int i = 0; i < first.Length; i++)
+            second[i] = first[i];
     }
 
     public GameTexture[][] GetTextureLayers(int length, int[] yPositions)
