@@ -7,6 +7,7 @@
     <File>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/Fruit Catcher/Git/Fruit-Catcher-Project/RtfGameProject/Content/../../../../../../../Bubble.png</File>
     <File>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/Fruit Catcher/Git/Fruit-Catcher-Project/RtfGameProject/Content/apple.png</File>
     <File>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/Fruit Catcher/Git/Fruit-Catcher-Project/RtfGameProject/Content/Axe.jpg</File>
+    <File>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/Fruit Catcher/Git/Fruit-Catcher-Project/RtfGameProject/Content/Black.png</File>
     <File>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/Fruit Catcher/Git/Fruit-Catcher-Project/RtfGameProject/Content/bucket.png</File>
     <File>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/Fruit Catcher/Git/Fruit-Catcher-Project/RtfGameProject/Content/Button.png</File>
     <File>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/Fruit Catcher/Git/Fruit-Catcher-Project/RtfGameProject/Content/Empty.png</File>
@@ -25,6 +26,7 @@
   </SourceFiles>
   <DestFiles>
     <File>Bubble.png</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

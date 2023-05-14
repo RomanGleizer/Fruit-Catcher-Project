@@ -63,6 +63,7 @@ public partial class Game1
 
         if (_isGameStarted)
         {
+
             _yPositionsIndex = 0;
             #region Bucket Move
             var keyBoardState = Keyboard.GetState();

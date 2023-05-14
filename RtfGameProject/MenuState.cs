@@ -18,16 +18,22 @@ public class MenuState : State
         
         var newGameButton = new Button(buttonTexture, buttonFont)
         {
-            Position = new Vector2(300, 200),
-            Text = "New Game",
+            Position = new Vector2(320, 150),
+            Text = "New Game"
         };
 
         newGameButton.Click += NewGameButton_Click;
 
+        var tutorialGameButton = new Button(buttonTexture, buttonFont)
+        {
+            Position = new Vector2(320, 225),
+            Text = "Tutorial"
+        };
+
         var quitGameButton = new Button(buttonTexture, buttonFont)
         {
-            Position = new Vector2(300, 300),
-            Text = "Quit Game",
+            Position = new Vector2(320, 300),
+            Text = "Quit Game"
         };
 
         quitGameButton.Click += QuitGameButton_Click;
@@ -35,6 +41,7 @@ public class MenuState : State
         _components = new List<Component>()
         {
             newGameButton,
+            tutorialGameButton,
             quitGameButton,
         };
 }
