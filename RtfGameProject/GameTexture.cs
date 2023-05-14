@@ -9,9 +9,9 @@ public class GameTexture
     private float y;
     private Texture2D texture;
 
-    public float Speed { get; }
-    public int Width { get; }
-    public int Height { get; }
+    public float Speed { get; set; }
+    public int Width { get; set; }
+    public int Height { get; set; }
     public string Name { get; set; }
     public bool IsTouchedBucket { get; }
     public Vector2 Velocity { get; }

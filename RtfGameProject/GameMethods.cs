@@ -91,14 +91,22 @@ public partial class Game1
                 foreach (var texture in layer)
                 {
                     _gameModel.MoveTexture(gameTime, texture);
-                    if (texture.Y > GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height)
+                    if (texture.Y > GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height + 100)
                     {
-                        _gameModel.InstantiteLayer(layer, _yPositions[_yPositionsIndex++]);
                         var newLayer = _gameModel.GetObjectLayer(_yPositions[_index], 400);
-                        layer[_index].Texture = newLayer[_index].Texture;
-                        layer[_index].Name = newLayer[_index].Name;
+                        foreach (var item in newLayer) _gameModel.LoadContent(item);
+
+                        if (layer.Length > newLayer.Length)
+                            for (int i = 0; i < newLayer.Length; i++)
+                                layer[i] = newLayer[i];
+
+                        if (newLayer.Length >= layer.Length)
+                            for (int i = 0; i < layer.Length; i++)
+                                layer[i] = newLayer[i];
+
+                        _gameModel.InstantiteLayer(layer, _yPositions[_yPositionsIndex++]);
                     }
-                    _index = 0;
+
                     if (_gameModel.IsTouching(_bucket, texture))
                     {
                         if (texture is Fruit) _collisionCounter++;
@@ -109,7 +117,6 @@ public partial class Game1
                     }
                 }
             }
-            _yPositions = new int[] { -50, -150, -250, -350, -450, -550, -650, -750, -850, -950, -1050, -1150 };
             if (_healthAmount == 0) Exit();
         }
 

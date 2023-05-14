@@ -51,10 +51,10 @@ public partial class Model
     {
         var random = new Random();
         var textures = new List<GameTexture>();
-        var possiblePositionsX = new List<int> { 0, 160, 340, 550, 700 };
+        var possiblePositionsX = new List<int> { 100, 280, 490, 640 };
         var possibleTextures = GetTextureData();
 
-        for (int i = 0; i < possibleTextures.GetLength(0); i++)
+        for (int i = 0; i < possibleTextures.Length; i++)
         {
             var texturePositionX = possiblePositionsX.ElementAt(random.Next(0, possiblePositionsX.Count));
             var width = 80;

@@ -1,4 +1,6 @@
-﻿namespace RtfGameProject;
+﻿using Microsoft.Xna.Framework.Graphics;
+
+namespace RtfGameProject;
 
 public class Fruit : GameTexture
 {
