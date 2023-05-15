@@ -221,3 +221,10 @@
 /processorParam:TextureFormat=Color
 /build:Tool.png
 
+#begin Tutorial Text.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Tutorial Text.spritefont
+

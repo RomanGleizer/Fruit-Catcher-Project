@@ -23,9 +23,11 @@
     <File>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/Fruit Catcher/Git/Fruit-Catcher-Project/RtfGameProject/Content/Shield.spritefont</File>
     <File>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/Fruit Catcher/Git/Fruit-Catcher-Project/RtfGameProject/Content/SiSharp.png</File>
     <File>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/Fruit Catcher/Git/Fruit-Catcher-Project/RtfGameProject/Content/Tool.png</File>
+    <File>C:/Users/romy4/OneDrive/Рабочий стол/Моё/C#/Fruit Catcher/Git/Fruit-Catcher-Project/RtfGameProject/Content/Tutorial Text.spritefont</File>
   </SourceFiles>
   <DestFiles>
     <File>Bubble.png</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

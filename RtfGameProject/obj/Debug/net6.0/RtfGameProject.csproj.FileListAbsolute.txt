@@ -80,3 +80,4 @@ C:\Users\romy4\OneDrive\Рабочий стол\Моё\C#\Fruit Catcher\Git\Frui
 C:\Users\romy4\OneDrive\Рабочий стол\Моё\C#\Fruit Catcher\Git\Fruit-Catcher-Project\RtfGameProject\obj\Debug\net6.0\RtfGameProject.genruntimeconfig.cache
 C:\Users\romy4\OneDrive\Рабочий стол\Моё\C#\Fruit Catcher\Git\Fruit-Catcher-Project\RtfGameProject\obj\Debug\net6.0\ref\RtfGameProject.dll
 C:\Users\romy4\OneDrive\Рабочий стол\Моё\C#\Fruit Catcher\Git\Fruit-Catcher-Project\RtfGameProject\bin\Debug\net6.0\Content\Black.xnb
+C:\Users\romy4\OneDrive\Рабочий стол\Моё\C#\Fruit Catcher\Git\Fruit-Catcher-Project\RtfGameProject\bin\Debug\net6.0\Content\Tutorial Text.xnb

@@ -15,13 +15,22 @@ public partial class Game1
         _gameModel = new Model(Content);
         _bucket = new Bucket(360, 400, 500, 65, 65, "bucket");
         _bubble = new GameTexture(_bucket.X, _bucket.Y, 500, 150, 150, "bubble");
+        _blackBlackground = new GameTexture(0, 0, 0, 
+            GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height, "Black");
 
         _yPositions = new int[] { -50, -150, -250, -350, -450, -550, -650, -750, -850, -950, -1050, -1150 };
         _textureLayers = _gameModel.GetTextureLayers(11, _yPositions);
 
         BucketRigthBorder = _graphics.PreferredBackBufferWidth - _bucket.Width / 2 - 30;
         BucketLeftBorder = _bucket.Width / 2 - 30;
+        _isGameStarted = false;
+        _isOpenTutorial = false;
         _healthAmount = 3;
+        _tutorialDescription = "Hey, Welcome to my game :) " +
+            "The task is to get 100 points by collecting fruits. \n" +
+            "There will be tools that take your lives. C# will be your doctor, he adds life. \n" +
+            "Yuri Okulovsky is your shield. He will help you protect yourself from tools. \n" +
+            "Good luck and have fun !";
     }
 
     public void ChangeState(State state)
@@ -33,13 +42,15 @@ public partial class Game1
 
     protected override void LoadContent()
     {
+        _tutorialText = Content.Load<SpriteFont>("Tutorial Text");
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _currentState = new MenuState(this, _graphics.GraphicsDevice, Content, _gameModel, _spriteBatch);
+        _currentState = new MenuState(this, _graphics.GraphicsDevice, Content, _gameModel, _spriteBatch, _isOpenTutorial, _tutorialText);
 
         foreach (var layer in _textureLayers)
             foreach (var texture in layer) _gameModel.LoadContent(texture);
 
         _gameModel.LoadContent(_bucket);
+        _gameModel.LoadContent(_blackBlackground);
         _gameModel.LoadContent(_bubble);
 
         _scoreFont = Content.Load<SpriteFont>("Score");
@@ -137,10 +148,19 @@ public partial class Game1
             _bubble.X = _bucket.X - 40;
             _bubble.Y = _bucket.Y - 50;
             _gameModel.DrawTexture(_spriteBatch, _bubble);
+        }       
+        if (_currentState.IsPossibleOpenTutorial)
+        {
+            _gameModel.DrawTexture(_spriteBatch, _blackBlackground);
+            _spriteBatch.DrawString(_tutorialText, _tutorialDescription, new Vector2(60, 150), Color.White);
+            _currentState.DrawOne(gameTime, _spriteBatch, 2);
         }
 
-        _spriteBatch.DrawString(_scoreFont, _collisionCounter.ToString(), new Vector2(0, 0), Color.Black);
-        _spriteBatch.DrawString(_healthFont, _healthAmount.ToString(), new Vector2(0, 30), Color.Red);
+        if (!_currentState.IsPossibleOpenTutorial)
+        {
+            _spriteBatch.DrawString(_scoreFont, _collisionCounter.ToString(), new Vector2(0, 0), Color.Black);
+            _spriteBatch.DrawString(_healthFont, _healthAmount.ToString(), new Vector2(0, 30), Color.Red);
+        }
 
         _spriteBatch.End();
         base.Draw(gameTime);
