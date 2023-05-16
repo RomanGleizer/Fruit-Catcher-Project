@@ -5,7 +5,7 @@ namespace RtfGameProject;
 
 public partial class Game1 : Game
 {
-    private const int ShieldActivePeriodTime = 700;
+    private const double ShieldActivePeriodTime = 500;
 
     private readonly int BucketRigthBorder;
     private readonly int BucketLeftBorder;
@@ -29,6 +29,7 @@ public partial class Game1 : Game
     private int _collisionCounter;
     private int _healthAmount;
     private int _index;
+    private double _shieldTime;
     private bool _isShieldActive;
     private bool _isGameStarted;
     private bool _isOpenTutorial;

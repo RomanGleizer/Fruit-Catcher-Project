@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace RtfGameProject;
 
@@ -34,6 +35,7 @@ public partial class Game1
         _isGameStarted = false;
         _isOpenTutorial = false;
         _healthAmount = 3;
+        _shieldTime = ShieldActivePeriodTime;
     }
 
     public void ChangeState(State state)
@@ -78,7 +80,6 @@ public partial class Game1
         if (_isGameStarted)
         {
             _yPositionsIndex = 0;
-            _shieldActivePeriodTimer++;
             #region Bucket Move
             var keyBoardState = Keyboard.GetState();
             var delta = _bucket.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -93,12 +94,6 @@ public partial class Game1
             else if (_bucket.X < BucketLeftBorder)
                 _bucket.X = BucketLeftBorder;
             #endregion
-
-            if (_shieldActivePeriodTimer == ShieldActivePeriodTime)
-            {
-                _shieldActivePeriodTimer = 0;
-                _isShieldActive = false;
-            }
 
             foreach (var layer in _textureLayers)
             {
@@ -127,6 +122,17 @@ public partial class Game1
                 _index = 0;
             }
 
+            if (_isShieldActive)
+            {
+                _shieldActivePeriodTimer++;
+                _shieldTime--;
+            }
+            if (_shieldActivePeriodTimer == ShieldActivePeriodTime)
+            {
+                _shieldActivePeriodTimer = 0;
+                _shieldTime = ShieldActivePeriodTime;
+                _isShieldActive = false;
+            }
             if (_healthAmount == 0 || _collisionCounter == 100) Exit();
         }
 
@@ -161,11 +167,11 @@ public partial class Game1
 
         if (!_currentState.IsPossibleOpenTutorial)
         {
-            _spriteBatch.DrawString(_font, "Points: ", new Vector2(0, 0), Color.Green);
-            _spriteBatch.DrawString(_font, _collisionCounter.ToString(), new Vector2(60, 0), Color.Green);
-            _spriteBatch.DrawString(_font, "Health: ", new Vector2(0, 30), Color.Red);
-            _spriteBatch.DrawString(_font, _healthAmount.ToString(), new Vector2(60, 30), Color.Red);
-            _spriteBatch.DrawString(_font, "Shield Time: ", new Vector2(0, 60), Color.Red);
+            var shiledData = "Shield Time: " + (Math.Round(_shieldTime / 100)).ToString();
+
+            _spriteBatch.DrawString(_font, "Points: " + _collisionCounter.ToString(), new Vector2(0, 0), Color.Green);
+            _spriteBatch.DrawString(_font, "Health: " + _healthAmount.ToString(), new Vector2(0, 30), Color.Red);
+            _spriteBatch.DrawString(_font, shiledData, new Vector2(0, 60), Color.Orange);
         }
 
         _spriteBatch.End();
