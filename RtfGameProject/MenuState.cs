@@ -41,7 +41,7 @@ public class MenuState : State
 
         var exitFromTutorialButton = new Button(buttonTexture, buttonFont)
         {
-            Position = new Vector2(320, 375),
+            Position = new Vector2(600, 375),
             Text = "Back"
         };
         exitFromTutorialButton.Click += ExitFromTutorialMenu_Click;

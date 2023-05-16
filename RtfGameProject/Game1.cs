@@ -18,10 +18,10 @@ public partial class Game1 : Game
     private Bucket _bucket;
     private GameTexture _bubble;
     private GameTexture _blackBlackground;
+    private GameTexture _tutorialText;
     private Model _gameModel;
-    private SpriteFont _scoreFont;
-    private SpriteFont _healthFont;
-    private SpriteFont _tutorialText;
+    private SpriteFont _font;
+    private SpriteFont _tutorialFont;
     private State _currentState;
     private State _nextState;
     private int _shieldActivePeriodTimer;
@@ -32,5 +32,4 @@ public partial class Game1 : Game
     private bool _isShieldActive;
     private bool _isGameStarted;
     private bool _isOpenTutorial;
-    private string _tutorialDescription;
 }

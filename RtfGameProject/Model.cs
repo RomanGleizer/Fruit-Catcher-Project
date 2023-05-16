@@ -31,6 +31,14 @@ public partial class Model
             Color.White);
     }
 
+    public void DrawTexture(SpriteBatch spriteBatch, GameTexture texture, Vector2 position)
+    {
+        spriteBatch.Draw(
+            texture.Texture,
+            position,
+            Color.White);
+    }
+
     public void MoveTexture(GameTime gameTime, GameTexture texture)
     {
         texture.Y += texture.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -49,7 +57,7 @@ public partial class Model
     {
         var random = new Random();
         var textures = new List<GameTexture>();
-        var possiblePositionsX = new List<int> { 100, 280, 490, 640 };
+        var possiblePositionsX = new List<int> { 140, 320, 530, 680 };
         var possibleTextures = GetTextureData();
 
         for (int i = 0; i < possibleTextures.Length; i++)

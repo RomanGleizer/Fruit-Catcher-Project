@@ -15,8 +15,16 @@ public partial class Game1
         _gameModel = new Model(Content);
         _bucket = new Bucket(360, 400, 500, 65, 65, "bucket");
         _bubble = new GameTexture(_bucket.X, _bucket.Y, 500, 150, 150, "bubble");
-        _blackBlackground = new GameTexture(0, 0, 0, 
-            GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height, "Black");
+
+        _tutorialText = new GameTexture(0, 0, 0, 0, 0, "Tutorial");
+
+        _blackBlackground = new GameTexture
+            (
+                0, 0, 0, 
+                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, 
+                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height, 
+                "Black"
+            );
 
         _yPositions = new int[] { -50, -150, -250, -350, -450, -550, -650, -750, -850, -950, -1050, -1150 };
         _textureLayers = _gameModel.GetTextureLayers(11, _yPositions);
@@ -26,11 +34,6 @@ public partial class Game1
         _isGameStarted = false;
         _isOpenTutorial = false;
         _healthAmount = 3;
-        _tutorialDescription = "Hey, Welcome to my game :) " +
-            "The task is to get 100 points by collecting fruits. \n" +
-            "There will be tools that take your lives. C# will be your doctor, he adds life. \n" +
-            "Yuri Okulovsky is your shield. He will help you protect yourself from tools. \n" +
-            "Good luck and have fun !";
     }
 
     public void ChangeState(State state)
@@ -42,19 +45,19 @@ public partial class Game1
 
     protected override void LoadContent()
     {
-        _tutorialText = Content.Load<SpriteFont>("Tutorial Text");
+        _tutorialFont = Content.Load<SpriteFont>("Tutorial Text");
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _currentState = new MenuState(this, _graphics.GraphicsDevice, Content, _gameModel, _spriteBatch, _isOpenTutorial, _tutorialText);
+        _currentState = new MenuState(this, _graphics.GraphicsDevice, Content, _gameModel, _spriteBatch, _isOpenTutorial, _tutorialFont);
 
         foreach (var layer in _textureLayers)
             foreach (var texture in layer) _gameModel.LoadContent(texture);
 
+        _gameModel.LoadContent(_tutorialText);
         _gameModel.LoadContent(_bucket);
         _gameModel.LoadContent(_blackBlackground);
         _gameModel.LoadContent(_bubble);
 
-        _scoreFont = Content.Load<SpriteFont>("Score");
-        _healthFont = Content.Load<SpriteFont>("Health");
+        _font = Content.Load<SpriteFont>("Score");
     }
 
     protected override void Update(GameTime gameTime)
@@ -124,7 +127,7 @@ public partial class Game1
                 _index = 0;
             }
 
-            if (_healthAmount == 0) Exit();
+            if (_healthAmount == 0 || _collisionCounter == 100) Exit();
         }
 
         base.Update(gameTime);
@@ -152,14 +155,17 @@ public partial class Game1
         if (_currentState.IsPossibleOpenTutorial)
         {
             _gameModel.DrawTexture(_spriteBatch, _blackBlackground);
-            _spriteBatch.DrawString(_tutorialText, _tutorialDescription, new Vector2(60, 150), Color.White);
+            _gameModel.DrawTexture(_spriteBatch, _tutorialText, new Vector2(_tutorialText.X, _tutorialText.Y));
             _currentState.DrawOne(gameTime, _spriteBatch, 2);
         }
 
         if (!_currentState.IsPossibleOpenTutorial)
         {
-            _spriteBatch.DrawString(_scoreFont, _collisionCounter.ToString(), new Vector2(0, 0), Color.Black);
-            _spriteBatch.DrawString(_healthFont, _healthAmount.ToString(), new Vector2(0, 30), Color.Red);
+            _spriteBatch.DrawString(_font, "Points: ", new Vector2(0, 0), Color.Green);
+            _spriteBatch.DrawString(_font, _collisionCounter.ToString(), new Vector2(60, 0), Color.Green);
+            _spriteBatch.DrawString(_font, "Health: ", new Vector2(0, 30), Color.Red);
+            _spriteBatch.DrawString(_font, _healthAmount.ToString(), new Vector2(60, 30), Color.Red);
+            _spriteBatch.DrawString(_font, "Shield Time: ", new Vector2(0, 60), Color.Red);
         }
 
         _spriteBatch.End();
