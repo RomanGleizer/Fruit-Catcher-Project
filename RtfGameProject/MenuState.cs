@@ -13,14 +13,15 @@ public class MenuState : State
     public List<Component> Components { get; }
 
     public MenuState(
-        Game1 game, 
+        Game1 game,
         GraphicsDevice graphicsDevice,
-        ContentManager content, 
-        Model model, 
+        ContentManager content,
+        Model model,
         SpriteBatch batch,
-        bool isOpenTutorial, 
+        bool isOpenTutorial,
+        bool isGameEnd,
         SpriteFont tutorialText)
-        : base(game, graphicsDevice, content, model, batch, isOpenTutorial, tutorialText)
+        : base(game, graphicsDevice, content, model, batch, isOpenTutorial, isGameEnd, tutorialText)
     {
         var buttonTexture = _content.Load<Texture2D>("Button");
         var buttonFont = _content.Load<SpriteFont>("Font");
@@ -58,7 +59,7 @@ public class MenuState : State
             newGameButton,
             tutorialGameButton,
             exitFromTutorialButton,
-            quitGameButton
+            quitGameButton,
         };
     }
 
@@ -75,7 +76,15 @@ public class MenuState : State
 
     private void NewGameButton_Click(object sender, EventArgs e)
     {
-        _game.ChangeState(new GameState(_game, _graphicsDevice, _content, _model, _batch, IsPossibleOpenTutorial, TutorialText));
+        _game.ChangeState(new GameState(
+            _game, 
+            _graphicsDevice, 
+            _content, 
+            _model, 
+            _batch, 
+            IsPossibleOpenTutorial, 
+            IsGameEnd, 
+            TutorialText));
     }
 
     public void TutorialGameButton_Click(object sender, EventArgs e)

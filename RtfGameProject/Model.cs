@@ -44,6 +44,13 @@ public partial class Model
         texture.Y += texture.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
 
+    public void StopTextures(GameTime gameTime, GameTexture[][] texturesLayers)
+    {
+        foreach (var layer in texturesLayers)
+            foreach (var texture in layer)
+                texture.Y += 0 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+    }
+
     public void InstantiteLayer(GameTexture[] textures, int yPosition)
     {
         foreach (var texture in textures)
@@ -51,6 +58,18 @@ public partial class Model
             LoadContent(texture);
             texture.Y = yPosition;
         }
+    }
+
+    public void SwitchLayers(GameTexture[] layer, int[] yPositions, ref int index, ref int yPositionsIndex)
+    {
+        var newLayer = GetObjectLayer(yPositions[index++], 400);
+
+        if (layer.Length >= newLayer.Length)
+            ChangeTextures(newLayer, layer);
+        if (newLayer.Length >= layer.Length)
+            ChangeTextures(layer, newLayer);
+
+        InstantiteLayer(layer, yPositions[yPositionsIndex++]);
     }
 
     public GameTexture[] GetObjectLayer(int texturePositionY, int textureSpeed)

@@ -83,3 +83,5 @@ C:\Users\romy4\OneDrive\Рабочий стол\Моё\C#\Fruit Catcher\Git\Frui
 C:\Users\romy4\OneDrive\Рабочий стол\Моё\C#\Fruit Catcher\Git\Fruit-Catcher-Project\RtfGameProject\bin\Debug\net6.0\Content\Tutorial Text.xnb
 C:\Users\romy4\OneDrive\Рабочий стол\Моё\C#\Fruit Catcher\Git\Fruit-Catcher-Project\RtfGameProject\bin\Debug\net6.0\Content\HealthText.xnb
 C:\Users\romy4\OneDrive\Рабочий стол\Моё\C#\Fruit Catcher\Git\Fruit-Catcher-Project\RtfGameProject\bin\Debug\net6.0\Content\Tutorial.xnb
+C:\Users\romy4\OneDrive\Рабочий стол\Моё\C#\Fruit Catcher\Git\Fruit-Catcher-Project\RtfGameProject\bin\Debug\net6.0\Content\Win.xnb
+C:\Users\romy4\OneDrive\Рабочий стол\Моё\C#\Fruit Catcher\Git\Fruit-Catcher-Project\RtfGameProject\bin\Debug\net6.0\Content\Yurchik.xnb

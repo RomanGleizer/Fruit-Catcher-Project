@@ -13,9 +13,8 @@ public abstract class State
     protected Model _model;
 
     public bool IsPossibleOpenTutorial;
+    public bool IsGameEnd;
     public SpriteFont TutorialText;
-
-    public GameTexture BlackBackground { get; set; }
 
     public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
     public abstract void DrawOne(GameTime gameTime, SpriteBatch spriteBatch, int index);
@@ -29,6 +28,7 @@ public abstract class State
         Model model, 
         SpriteBatch batch, 
         bool isOpenTutorial,
+        bool isGameEnd,
         SpriteFont tutorialText)
     {
         _game = game;
@@ -37,6 +37,7 @@ public abstract class State
         _model = model;
         _batch = batch;
         IsPossibleOpenTutorial = isOpenTutorial;
+        IsGameEnd = isGameEnd;
         TutorialText = tutorialText;
     }
 }

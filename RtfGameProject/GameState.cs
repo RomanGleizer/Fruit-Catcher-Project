@@ -13,8 +13,9 @@ public class GameState : State
         Model model, 
         SpriteBatch batch, 
         bool isOpenTutorial,
+        bool isGameEnd,
         SpriteFont tutorialText)
-      : base(game, graphicsDevice, content, model, batch, isOpenTutorial, tutorialText)
+      : base(game, graphicsDevice, content, model, batch, isOpenTutorial, isGameEnd, tutorialText)
     {
     }
 
